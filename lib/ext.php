@@ -152,6 +152,7 @@ class ExtUsr extends ExtParser {
 	var $m_prefix;
 
 	function ExtUsr() {
+		parent::ExtParser();
 		$this->m_ctx = array();
 	}
 
@@ -226,6 +227,7 @@ class ExtAel extends ExtParser {
 	var $m_ctx;
 
 	function ExtAel() {
+		parent::ExtParser();
 		$this->m_ctx = array();
 	}
 
