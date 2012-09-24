@@ -16,11 +16,18 @@ function invalid_entry($model, $focus)
 	exit;
 }
 
+$model = $_POST;
+if ($_GET["mac"] != "") {
+	$model["mac"] = $_GET["mac"];
+	$model["mode"] = "edit";
+	$model["focus"] = "username";
+} else {
+	$model["mode"] = "add";
+	$model["focus"] = "mac";
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	/* validate all the entries */
-	$model = $_POST;
-	if (valid_mac($_GET["mac"]) !== false)
-		$model["mac"] = $_GET["mac"];
 	if (valid_username($model["username"]) === false)
 		invalid_entry($model, "username");
 	if (valid_password($model["password"]) === false)
@@ -96,9 +103,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	render("Edit", "edit", $model);
 	exit;
 }
-
-unset($model);
-$model["mac"] = $_GET["mac"];
 
 // load generic info by mac
 $ini = new Ini();

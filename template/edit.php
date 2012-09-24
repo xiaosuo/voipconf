@@ -81,11 +81,14 @@ var switch_id = <?php echo(max(array_keys($model["switch"])) + 1); ?>;
 var gateway_id = <?php echo(max(array_keys($model["gateway"])) + 1); ?>;
 
 $(document).ready(function() {
-	var mac = $('input[name="mac"]');
-	/* FIXME: if MAC is invalid, we shoud not disable it */
-	if (mac.attr('value') != "")
-		mac.attr('disabled', 'disabled');
-	$('input[name="<?php echo($model["focus"] == "" ? "username" : $model["focus"]); ?>"]').focus().select();
+<?php
+if ($model["mode"] == "edit") {
+?>
+	$('input[name="mac"]').attr('disabled', 'disabled');
+<?php
+}
+?>
+	$('input[name="<?php echo $model["focus"]; ?>"]').focus().select();
 	$('img[name="delete"]').each(function(i) {
 		$(this).click(function() {
 			$(this).parent().parent().remove();
@@ -133,11 +136,11 @@ $(document).ready(function() {
 		$('form').submit();
 	});
 <?php
-	if ($model["message"] != "") {
+if ($model["message"] != "") {
 ?>
 	alert("<?php echo $model["message"]; ?>");
 <?php
-	}
+}
 ?>
 });
 </script>
