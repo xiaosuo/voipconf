@@ -92,12 +92,14 @@ if ($model["mode"] == "edit") {
 	$('input[name="<?php echo $model["focus"]; ?>"]').focus().select();
 	$('img[name="delete"]').each(function(i) {
 		$(this).click(function() {
-			$(this).parent().parent().remove();
+			if (confirm("Are you sure to delete this entry?"))
+				$(this).parent().parent().remove();
 		});
 	});
 	$('img[name="delete-all"]').each(function(i) {
 		$(this).click(function() {
-			$(this).parent().parent().siblings().remove();
+			if (confirm("Are you sure to delete all the entries?"))
+				$(this).parent().parent().siblings().remove();
 		});
 	});
 	$('img[name="add-switch"]').click(function() {

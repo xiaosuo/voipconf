@@ -7,7 +7,7 @@
 	<tr>
 		<th class="action">
 			<a href="edit.php"><img src="image/add.png" alt="Add"/></a>
-			<a href="list.php?del=all"><img src="image/delete.png" alt="Delete All"/></a>
+			<a href="list.php?del=all"><img name="delete-all" src="image/delete.png" alt="Delete All"/></a>
 		</th>
 		<th>MAC Address</th>
 		<th>Username</th>
@@ -18,7 +18,7 @@
 foreach ($model as $config) {
 ?>
 	<tr>
-		<th class="action"><a href="list.php?del=<?php echo urlencode($config["mac"]); ?>"><img src="image/delete.png" alt="Delete"/></a></th>
+		<th class="action"><a href="list.php?del=<?php echo urlencode($config["mac"]); ?>"><img name="delete" src="image/delete.png" alt="Delete"/></a></th>
 		<td><a href="edit.php?mac=<?php echo urlencode($config["mac"]); ?>"><?php echo $config["mac"]; ?></a></td>
 		<td><?php echo htmlspecialchars($config["username"]); ?></td>
 		<td>
@@ -53,4 +53,14 @@ foreach ($model as $config) {
 ?>
 </table>
 <script>
+$(document).ready(function() {
+	$('img[name|="delete"]').click(function(event) {
+		if ($(this).attr("name") == "delete")
+			var msg = "this configuration";
+		else
+			var msg = "all the configurations";
+		if (!confirm("Are you sure to delete " + msg + "?"))
+			return false;
+	});
+});
 </script>
