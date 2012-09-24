@@ -121,6 +121,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$usr->dump($g_ext_usr);
 	$ael->dump($g_ext_ael);
 
+	reload_all($g_vpn);
+
 	header("Location: " . dirname($_SERVER["PHP_SELF"]) . "/list.php");
 	exit;
 }

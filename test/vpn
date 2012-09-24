@@ -5,7 +5,21 @@ if [ $# -ne 2 ] || [ $1 != "-rx" ]; then
 	exit 1
 fi
 
+log()
+{
+	echo $(date) $1 >> /tmp/voipconf.log
+}
+
 case $2 in
+"sync reload")
+	log "$2"
+	;;
+"sip reload")
+	log "$2"
+	;;
+"ael reload")
+	log "$2"
+	;;
 "core show channels")
 	cat <<EOF
 Channel              Location             State   Application(Data)

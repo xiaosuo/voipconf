@@ -27,6 +27,8 @@ if (!empty($_GET["del"])) {
 
 		file_put_contents($g_ext_ael, "");
 		file_put_contents($g_ext_usr, "");
+
+		reload_all($g_vpn);
 	} else {
 		$mac = valid_mac($_GET["del"]);
 		if ($mac !== false) {
@@ -63,6 +65,8 @@ if (!empty($_GET["del"])) {
 				$ext->delete($target_user);
 				$ext->dump($g_ext_ael);
 			}
+
+			reload_all($g_vpn);
 		}
 	}
 }

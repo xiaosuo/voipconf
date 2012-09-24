@@ -34,12 +34,20 @@ function get_switch($filename, $username)
 	return $switches;
 }
 
-function get_gateway($filename, $username) {
+function get_gateway($filename, $username)
+{
 
 	$ext = new ExtUsr();
 	$ext->load($filename);
 
 	return array_values($ext->get($username));
+}
+
+function reload_all($vpn)
+{
+	exec("$vpn -rx 'sync reload' &>/dev/null");
+	exec("$vpn -rx 'sip reload' &>/dev/null");
+	exec("$vpn -rx 'ael reload' &>/dev/null");
 }
 
 /*
