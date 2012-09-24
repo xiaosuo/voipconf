@@ -8,12 +8,17 @@ require_once("lib/ini.php");
 require_once("lib/ext.php");
 require_once("lib/validate.php");
 
-function invalid_entry($model, $focus)
+function __invalid_entry($model, $focus, $message)
 {
 	$model["focus"] = $focus;
-	$model["message"] = "Invalid Entry";
+	$model["message"] = $message;
 	render("Edit", "edit", $model);
 	exit;
+}
+
+function invalid_entry($model, $focus)
+{
+	__invalid_entry($model, $focus, "Invalid Entry");
 }
 
 $model = $_POST;
@@ -50,8 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			invalid_entry($model, "gateway[$i][prefix]");
 	}
 
-	// FIXME: check for duplicate usernames, mac, switches, gateways
-
 	$ini = new Ini();
 	$ini->load($g_chan_sync);
 	foreach ($ini->sections() as $user) {
@@ -61,6 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			break;
 		}
 	}
+	if (in_array($model["username"], $ini->sections()))
+		__invalid_entry($model, "username", "Duplicate Username");
 	$ini->add($model["username"], "authname", $model["username"]);
 	$ini->add($model["username"], "secret", $model["password"]);
 	$ini->add($model["username"], "host", "dynamic");
