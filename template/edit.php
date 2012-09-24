@@ -85,7 +85,7 @@ $(document).ready(function() {
 	/* FIXME: if MAC is invalid, we shoud not disable it */
 	if (mac.attr('value') != "")
 		mac.attr('disabled', 'disabled');
-	$('input[name="username"]').focus().select();
+	$('input[name="<?php echo($model["focus"] == "" ? "username" : $model["focus"]); ?>"]').focus().select();
 	$('img[name="delete"]').each(function(i) {
 		$(this).click(function() {
 			$(this).parent().parent().remove();
@@ -132,5 +132,12 @@ $(document).ready(function() {
 	$('#apply').click(function() {
 		$('form').submit();
 	});
+<?php
+	if ($model["message"] != "") {
+?>
+	alert("<?php echo $model["message"]; ?>");
+<?php
+	}
+?>
 });
 </script>
