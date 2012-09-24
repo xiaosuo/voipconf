@@ -77,6 +77,8 @@ function valid_username($username)
 		return false;
 	if (preg_match("/^\S+$/s", $username) != 1)
 		return false;
+	if ($username == "general" || $username == "default")
+		return false;
 
 	return $username;
 }
