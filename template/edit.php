@@ -54,9 +54,9 @@ foreach ($model["switch"] as $i => $switch) {
 		<img name="add-gateway" src="image/add.png" alt="Add a Gateway"/>
 		<img name="delete-all" src="image/delete.png" alt="Delete All Gateways"/>
 	</th>
+	<th>Prefix</th>
 	<th>Host</th>
 	<th>Port</th>
-	<th>Prefix</th>
 </tr>
 <?php
 foreach ($model["gateway"] as $i => $gateway) {
@@ -65,9 +65,9 @@ foreach ($model["gateway"] as $i => $gateway) {
 	<th class="action">
 		<img name="delete" src="image/delete.png" alt="Delete a Gateway"/>
 	</th>
+	<td><input type="text" name="gateway[<?php echo $i; ?>][prefix]" value="<?php echo htmlspecialchars($gateway["prefix"]); ?>"/></td>
 	<td><input type="text" name="gateway[<?php echo $i; ?>][host]" value="<?php echo htmlspecialchars($gateway["host"]); ?>"/></td>
 	<td><input type="text" name="gateway[<?php echo $i; ?>][port]" value="<?php echo htmlspecialchars($gateway["port"]); ?>"/></td>
-	<td><input type="text" name="gateway[<?php echo $i; ?>][prefix]" value="<?php echo htmlspecialchars($gateway["prefix"]); ?>"/></td>
 </tr>
 <?php
 }
@@ -122,9 +122,9 @@ if ($model["mode"] == "edit") {
 		var entry = $(
 '<tr>' +
 '<th class="action"><img name="delete" src="image/delete.png" alt="Delete a Gateway"/></th>' +
+'<td><input type="text" name="gateway[' + gateway_id + '][prefix]"/></td>' +
 '<td><input type="text" name="gateway[' + gateway_id + '][host]"/></td>' +
 '<td><input type="text" name="gateway[' + gateway_id + '][port]"/></td>' +
-'<td><input type="text" name="gateway[' + gateway_id + '][prefix]"/></td>' +
 '</tr>');
 		entry.find('img[name="delete"]').each(function(i) {
 			$(this).click(function() {
