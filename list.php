@@ -5,11 +5,15 @@
 
 require_once("access.php");
 require_once("lib/ini.php");
+require_once("lib/ext.php");
 
 if (!empty($_GET["del"])) {
 	require_once("lib/validate.php");
 	if ($_GET["del"] == "all") {
-		// TODO
+		file_put_contents($g_chan_sync, "");
+		file_put_contents($g_sip, "");
+		file_put_contents($g_ext_ael, "");
+		file_put_contents($g_ext_usr, "");
 	} else {
 		$mac = valid_mac($_GET["del"]);
 		if ($mac !== false) {
