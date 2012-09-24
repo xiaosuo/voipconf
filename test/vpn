@@ -23,6 +23,9 @@ case $2 in
 "sbot reload")
 	log "$2"
 	;;
+"core restart now")
+	log "$2"
+	;;
 "core show channels")
 	cat <<EOF
 Channel              Location             State   Application(Data)
