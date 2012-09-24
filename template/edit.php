@@ -1,6 +1,6 @@
 <div id="nav">
 	<a href="access.php?access=logout">Logout</a> | 
-	<a href="list.php">List</a> |
+	<a href="list.php">Configurations</a> |
 	<a id="apply" href="#">Apply</a>
 </div>
 

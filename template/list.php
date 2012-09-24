@@ -1,9 +1,9 @@
 <div id="nav">
 	<a href="access.php?access=logout">Logout</a> |
-	<a href="list.php">List</a>
+	<a href="list.php">Configurations</a>
 </div>
 <table>
-	<caption>The configurations</caption>
+	<caption>Configurations</caption>
 	<tr>
 		<th class="action">
 			<a href="edit.php"><img src="image/add.png" alt="Add"/></a>
