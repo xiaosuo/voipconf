@@ -51,17 +51,10 @@ th {
 	background-color: #eeeeee;
 }
 
-input, button {
+input {
 	margin: 0px;
 	padding: 0px;
 	width: 100%;
-}
-
-button {
-	border-width: 2px;
-}
-
-input {
 	border-width: 0px;
 	border-style: none;
 }
