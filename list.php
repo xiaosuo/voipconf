@@ -57,8 +57,8 @@ if (!empty($_GET["del"])) {
 $ini = new Ini();
 $ini->load($g_chan_sync);
 $users = $ini->sections();
-$macs = array();
+$model = array();
 foreach ($users as $user)
-	$macs[] = $ini->get($user, "mac");
-render("List", "list", $macs);
+	$model[] = array("mac" => $ini->get($user, "mac"), "username" => $user);
+render("List", "list", $model);
 ?>
