@@ -1,0 +1,63 @@
+#!/bin/bash
+#
+
+set -e
+
+BASIC_URL="http://127.0.0.1/voipconf/export.php"
+CONF_DIR="data.client"
+VPN="test/vpn"
+
+NIC="eth0"
+MAC=$(cat /sys/class/net/$NIC/address | sed 's/:/%3A/g')
+TMPDIR=$(mktemp -d /tmp/voipconf.XXXXXXXXXX)
+SERVER_FILES="sbo chan_sync ael sbo-general-register"
+
+get_file()
+{
+	wget "$BASIC_URL?mac=$MAC&type=$1" -O $TMPDIR/$1 &>/dev/null
+}
+
+extract_general()
+{
+	awk \
+		'/^[:space:]*\[.*\][:space:]*$/ {
+			extract = index($0, "[general]");
+		}
+		{
+			if (extract && index($0, "=>") == 0 && length($0) > 0)
+				print;
+		}' $1
+}
+
+# fetch configurations from server
+for f in $SERVER_FILES; do
+	get_file $f
+done
+
+# extract general configurations
+extract_general $CONF_DIR/sbo.conf > $TMPDIR/sbo.conf
+extract_general $CONF_DIR/chan_sync.conf > $TMPDIR/chan_sync.conf
+
+# generate the new sbo.conf
+echo -n "register => " >> $TMPDIR/sbo.conf
+cat $TMPDIR/sbo-general-register >> $TMPDIR/sbo.conf
+echo >> $TMPDIR/sbo.conf
+cat $TMPDIR/sbo >> $TMPDIR/sbo.conf
+
+# generate the new chan_sync.conf
+echo >> $TMPDIR/chan_sync.conf
+cat $TMPDIR/chan_sync >> $TMPDIR/chan_sync.conf
+
+mv $TMPDIR/ael $TMPDIR/extensions.ael
+
+if [ -n "$(diff $CONF_DIR/sbo.conf $TMPDIR/sbo.conf)" ] || \
+   [ -n "$(diff $CONF_DIR/chan_sync.conf $TMPDIR/chan_sync.conf)" ] || \
+   [ -n "$(diff $CONF_DIR/extensions.ael $TMPDIR/extensions.ael)" ]; then
+	for f in sbo.conf chan_sync.conf extensions.ael; do
+		cp $TMPDIR/$f $CONF_DIR/$f
+	done
+	$VPN -rx 'sbot reload'
+	$VPN -rx 'ael reload'
+fi
+
+rm -rf $TMPDIR

@@ -20,6 +20,9 @@ case $2 in
 "ael reload")
 	log "$2"
 	;;
+"sbot reload")
+	log "$2"
+	;;
 "core show channels")
 	cat <<EOF
 Channel              Location             State   Application(Data)
