@@ -77,8 +77,8 @@ foreach ($model["gateway"] as $i => $gateway) {
 </form>
 
 <script>
-var switch_id = <?php echo count($model["switch"]); ?>;
-var gateway_id = <?php echo count($model["gateway"]); ?>;;
+var switch_id = <?php echo(max(array_keys($model["switch"])) + 1); ?>;
+var gateway_id = <?php echo(max(array_keys($model["gateway"])) + 1); ?>;
 
 $(document).ready(function() {
 	var mac = $('input[name="mac"]');
