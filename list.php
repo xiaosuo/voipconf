@@ -58,6 +58,8 @@ $ini = new Ini();
 $ini->load($g_chan_sync);
 $model = array();
 foreach ($ini->sections() as $user) {
+	if ($user == "general")
+		continue;
 	$conf = array();
 	$conf["mac"] = $ini->get($user, "mac");
 	$conf["username"] = $user;
