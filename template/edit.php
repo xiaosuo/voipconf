@@ -137,8 +137,9 @@ if ($model["mode"] == "edit") {
 	});
 <?php
 if ($model["message"] != "") {
+	require_once("lib/util.php");
 ?>
-	alert("<?php echo $model["message"]; ?>");
+	alert("<?php echo quote_encode($model["message"]); ?>");
 <?php
 }
 ?>
