@@ -1,6 +1,6 @@
 context user01 {
-        _X.     => {
-                Dial(SYNC/user01/${EXTEN},60);
-                Hangup();
-        }
+	_X.	=> {
+		Dial(SYNC/user01/${EXTEN},60);
+		Hangup();
+	}
 }
