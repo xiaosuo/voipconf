@@ -1,0 +1,94 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	font-size: 15px;
+}
+
+a {
+	color: blue;
+	text-decoration: none;
+}
+
+#nav {
+	margin: 0px;
+	padding: 2px;
+	background-color: #2d2d2d;
+	border-color: #2d2d2d;
+	border-width: 0px 0px 2px 0px;
+	border-style: outset;
+	font-weight: bold;
+	color: white;
+}
+
+#nav > a {
+	color: white;
+	margin: 0px 8px 0px 8px;
+}
+
+caption {
+	background-color: #0d59d5;
+	color: white;
+	font-weight: bold;
+}
+
+table {
+	border-collapse: collapse;
+	margin: 10px;
+	min-width: 400px;
+	border-style: outset;
+	border-width: 2px;
+	border-color: black;
+}
+
+td, th {
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+	width: 200px;
+}
+
+th {
+	background-color: #eeeeee;
+}
+
+input, button {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+
+button {
+	border-width: 2px;
+}
+
+input {
+	border-width: 0px;
+	border-style: none;
+}
+
+input[type=submit] {
+	border-width: 2px;
+	border-style: outset;
+	width: 400px;
+}
+
+.warning {
+	padding: 5px;
+	font-weight: bold;
+	font-size: x-large;
+	color: red;
+}
+
+input[disabled=disabled] {
+	color: black;
+}
+
+.action {
+	text-align: center;
+	width: 40px;
+}
+
+img {
+	height: 15px;
+	width: 15px;
+}
