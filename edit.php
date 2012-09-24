@@ -20,7 +20,7 @@ $model = $_POST;
 if ($_GET["mac"] != "") {
 	$model["mac"] = $_GET["mac"];
 	$model["mode"] = "edit";
-	$model["focus"] = "username";
+	$model["focus"] = "password";
 } else {
 	$model["mode"] = "add";
 	$model["focus"] = "mac";

@@ -85,6 +85,7 @@ $(document).ready(function() {
 if ($model["mode"] == "edit") {
 ?>
 	$('input[name="mac"]').attr('disabled', 'disabled');
+	$('input[name="username"]').attr('disabled', 'disabled');
 <?php
 }
 ?>
