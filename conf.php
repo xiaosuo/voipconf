@@ -8,8 +8,8 @@ error_reporting(0);
 $g_username = "test";
 $g_password = "1234";
 
-$g_conf_dir = "data";
-$g_bin_dir = "test";
+$g_conf_dir = "test/conf/server";
+$g_bin_dir = "test/bin";
 
 $g_serv_ip = $_SERVER["SERVER_ADDR"];
 $g_serv_port = 4350;

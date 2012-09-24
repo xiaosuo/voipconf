@@ -9,3 +9,7 @@ It is __RECOMMENDED__ that change *g_username* and *g_password*. *g_conf_dir*,  
 ### voipsync
 
 You should update *BASIC_URL*, *CONF_DIR* and *VPN*.
+
+## Cleanup
+
+You should remove the unused directory *test*.

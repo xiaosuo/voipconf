@@ -4,8 +4,8 @@
 set -e
 
 BASIC_URL="http://127.0.0.1/voipconf/export.php"
-CONF_DIR="data.client"
-VPN="test/vpn"
+CONF_DIR="test/conf/client"
+VPN="test/bin/vpn"
 
 NIC="eth0"
 MAC=$(cat /sys/class/net/$NIC/address | sed 's/:/%3A/g')
