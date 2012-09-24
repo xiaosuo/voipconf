@@ -9,16 +9,16 @@
 <table>
 <caption>Generic</caption>
 <tr>
+	<th>MAC Address</th>
+	<td><input type="text" name="mac" value="<?php echo htmlspecialchars($model["mac"]); ?>"/></td>
+</tr>
+<tr>
 	<th>Username</th>
 	<td><input type="text" name="username" value="<?php echo htmlspecialchars($model["username"]); ?>"/></td>
 </tr>
 <tr>
 	<th>Password</th>
 	<td><input type="text" name="password" value="<?php echo htmlspecialchars($model["password"]); ?>"/></td>
-</tr>
-<tr>
-	<th>MAC Address</th>
-	<td><input type="text" name="mac" value="<?php echo htmlspecialchars($model["mac"]); ?>"/></td>
 </tr>
 </table>
 
