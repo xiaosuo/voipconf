@@ -168,6 +168,10 @@ class ExtUsr extends ExtParser {
 		$this->m_ctx[$username][$ctx["prefix"]] = $ctx;
 	}
 
+	function delete($username) {
+		unset($this->m_ctx[$username]);
+	}
+
 	function dump($fn) {
 		$fh = fopen($fn, "w");
 		if (!$fh)
@@ -235,7 +239,7 @@ class ExtAel extends ExtParser {
 		$fh = fopen($fn, "w");
 		if (!$fh)
 			return false;
-		foreach ($this->m_ctx as $username) {
+		foreach (array_keys($this->m_ctx) as $username) {
 			fwrite($fh, <<<EOF
 context $username {
 	_X.	=> {
@@ -251,13 +255,11 @@ EOF
 	}
 
 	function add($username) {
-		if (!in_array($username, $this->m_ctx))
-			$this->m_ctx[] = $username;
+		$this->m_ctx[$username] = true;
 	}
 
 	function delete($username) {
-		if (in_array($username, $this->m_ctx))
-			unset($this->m_ctx[$username]);
+		unset($this->m_ctx[$username]);
 	}
 
 	function clear() {
@@ -266,7 +268,7 @@ EOF
 	}
 
 	function handleUsername($username) {
-		$this->m_ctx[] = $username;
+		$this->m_ctx[$username] = true;
 	}
 
 	function handlePrefix($prefix) {
