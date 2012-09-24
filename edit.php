@@ -59,6 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$ini->load($g_chan_sync);
 	foreach ($ini->sections() as $user) {
 		if ($ini->get($user, "mac") == $model["mac"]) {
+			if ($model["mode"] == "add")
+				__invalid_entry($model, "mac", "Duplicate MAC Address");
 			$ini->deleteSection($user);
 			$old_user = $user;
 			break;
