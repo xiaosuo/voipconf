@@ -11,7 +11,7 @@ class ExtParser {
 	 * Return the length of the block on success
 	 * Return false on error
 	 */
-	function extractBlock($buf) {
+	static function extractBlock($buf) {
 		$matches = array();
 		$n = preg_match_all("/[{}]/", $buf, $matches,
 				PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
