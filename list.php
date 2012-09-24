@@ -80,5 +80,5 @@ foreach ($ini->sections() as $user) {
 	$conf["gateway"] = get_gateway($g_ext_usr, $user);
 	$model[] = $conf;
 }
-render("List", "list", $model);
+render("Configurations", "list", $model);
 ?>
