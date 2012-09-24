@@ -123,7 +123,7 @@ class ExtParser {
 		return $this->feed(file_get_contents($fn));
 	}
 
-	function clear($fn) {
+	function clear() {
 		$this->m_buf = "";
 	}
 
