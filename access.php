@@ -43,7 +43,7 @@ if ($from_me && isset($_POST["submit"])) {
 	$_SESSION["role"] = "writer";
 }
 
-if ($access_role == "")
+if (!isset($access_role))
 	$access_role = "writer";
 
 session_init($access_role);
