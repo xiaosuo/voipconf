@@ -11,14 +11,46 @@
 		</th>
 		<th>MAC Address</th>
 		<th>Username</th>
+		<th>Switch</th>
+		<th>Gateway</th>
 	</tr>
-<?php foreach ($model as $config) { ?>
+<?php
+foreach ($model as $config) {
+?>
 	<tr>
 		<th class="action"><a href="list.php?del=<?php echo urlencode($config["mac"]); ?>"><img src="image/delete.png" alt="Delete"/></a></th>
 		<td><a href="edit.php?mac=<?php echo urlencode($config["mac"]); ?>"><?php echo $config["mac"]; ?></a></td>
 		<td><?php echo htmlspecialchars($config["username"]); ?></td>
+		<td>
+			<ul>
+<?php
+	foreach ($config["switch"] as $switch) {
+?>
+				<li>
+					<?php echo $switch["host"]; ?>(<?php echo $switch["call-limit"]; ?>)
+				</li>
+<?php
+	}
+?>
+			</ul>
+		</td>
+		<td>
+			<ul>
+<?php
+	foreach ($config["gateway"] as $gateway) {
+?>
+				<li>
+					<?php echo $gateway["prefix"] ?>-<?php echo $gateway["host"]; ?>:<?php echo $gateway["port"]; ?>
+				</li>
+<?php
+	}
+?>
+			</ul>
+		</td>
 	</tr>
-<?php } ?>
+<?php
+}
+?>
 </table>
 <script>
 </script>

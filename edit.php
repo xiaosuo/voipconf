@@ -116,20 +116,10 @@ foreach ($ini->sections() as $user) {
 }
 
 // load switch info by username
-$model["switch"] = array();
-$ini->load($g_sip);
-foreach ($ini->sections() as $host) {
-	if ($ini->get($host, "context") == $model["username"]) {
-		$switch["host"] = $ini->get($host, "host");
-		$switch["call-limit"] = $ini->get($host, "call-limit");
-		$model["switch"][] = $switch;
-	}
-}
+$model["switch"] = get_switch($g_sip, $model["username"]);
 
 // load gateway info by username
-$ext = new ExtUsr();
-$ext->load($g_ext_usr);
-$model["gateway"] = array_values($ext->get($model["username"]));
+$model["gateway"] = get_gateway($g_ext_usr, $model["username"]);
 
 render("Edit", "edit", $model);
 ?>

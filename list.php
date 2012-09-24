@@ -56,9 +56,14 @@ if (!empty($_GET["del"])) {
 
 $ini = new Ini();
 $ini->load($g_chan_sync);
-$users = $ini->sections();
 $model = array();
-foreach ($users as $user)
-	$model[] = array("mac" => $ini->get($user, "mac"), "username" => $user);
+foreach ($ini->sections() as $user) {
+	$conf = array();
+	$conf["mac"] = $ini->get($user, "mac");
+	$conf["username"] = $user;
+	$conf["switch"] = get_switch($g_sip, $user);
+	$conf["gateway"] = get_gateway($g_ext_usr, $user);
+	$model[] = $conf;
+}
 render("List", "list", $model);
 ?>
