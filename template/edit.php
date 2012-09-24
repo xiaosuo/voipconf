@@ -111,7 +111,8 @@ if ($model["mode"] == "edit") {
 '</tr>');
 		entry.find('img[name="delete"]').each(function(i) {
 			$(this).click(function() {
-				$(this).parent().parent().remove();
+				if (confirm("Are you sure to delete this entry?"))
+					$(this).parent().parent().remove();
 			});
 		});
 		$(this).parent().parent().parent().append(entry);
@@ -128,7 +129,8 @@ if ($model["mode"] == "edit") {
 '</tr>');
 		entry.find('img[name="delete"]').each(function(i) {
 			$(this).click(function() {
-				$(this).parent().parent().remove();
+				if (confirm("Are you sure to delete this entry?"))
+					$(this).parent().parent().remove();
 			});
 		});
 		$(this).parent().parent().parent().append(entry);
