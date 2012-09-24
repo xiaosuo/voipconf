@@ -46,6 +46,7 @@ td, th {
 	border-color: black;
 	border-width: 1px;
 	width: 150px;
+	white-space: nowrap;
 }
 
 th {

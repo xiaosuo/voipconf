@@ -49,7 +49,7 @@ if (!isset($access_role))
 session_init($access_role);
 
 if ($from_me) {
-	header("Location: " . dirname($_SERVER["PHP_SELF"]) . "/list.php");
+	header("Location: " . dirname($_SERVER["PHP_SELF"]) . "/status.php");
 	exit;
 }
 ?>

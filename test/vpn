@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ $# -ne 2 ] || [ $1 != "-rx" ]; then
+	echo "Invalid parameter"
+	exit 1
+fi
+
+case $2 in
+"core show channels")
+	cat <<EOF
+Channel              Location             State   Application(Data)
+SIP/1002-0000cc3c    5601221401345@SBO3:1 Ring    Dial(SYNC/SBO3/5601221401345,6
+SIP/1002-0000cc3d    5901069849160@SBO3:1 Ring    Dial(SYNC/SBO3/5901069849160,6
+SYNC/SBO3-5          5601221401345@defaul Ring    AppDial((Outgoing Line))
+SYNC/SBO3-2          5901069849160@defaul Ring    AppDial((Outgoing Line))
+SYNC/SBO2-4          (None)               Up      AppDial((Outgoing Line))
+SIP/1001-0000cbaa    2701284493976@SBO1:1 Up      Dial(SYNC/SBO2/2701284493976,6
+6 active channels
+3 of 512 max active calls ( 0.59% of capacity)
+52287 calls processed
+EOF
+	;;
+*)
+	echo "Invalid parameter"
+	exit 1
+	;;
+esac
