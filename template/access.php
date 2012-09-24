@@ -1,3 +1,4 @@
+<div>
 <form name="login" method="post" action="access.php">
 <table>
 	<caption>Login</caption>
@@ -14,9 +15,10 @@
 	</tr>
 </table>
 </form>
+</div>
 <script>
 $(document).ready(function() {
-	var content = $('table');
+	var content = $('div');
 	content.css('position', 'fixed');
 	var left = ($(window).width() - parseInt(content.css('width'))) / 2;
 	content.css('left', left + "px");
