@@ -119,7 +119,12 @@ class ExtParser {
 	}
 
 	function load($fn) {
+		$this->clear();
 		return $this->feed(file_get_contents($fn));
+	}
+
+	function clear($fn) {
+		$this->m_buf = "";
 	}
 
 	function handleUsername($username) {
@@ -186,6 +191,11 @@ EOF
 		}
 	}
 
+	function clear() {
+		$this->m_ctx = array();
+		parent::clear();
+	}
+
 	function handleUsername($username) {
 		$this->m_ctx[$username] = array();
 		$this->m_username = $username;
@@ -246,6 +256,11 @@ EOF
 	function delete($username) {
 		if (in_array($username, $this->m_ctx))
 			unset($this->m_ctx[$username]);
+	}
+
+	function clear() {
+		$this->m_ctx = array();
+		parent::clear();
 	}
 
 	function handleUsername($username) {
