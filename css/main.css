@@ -91,4 +91,5 @@ input[disabled=disabled] {
 img {
 	height: 15px;
 	width: 15px;
+	border-width: 0px;
 }
