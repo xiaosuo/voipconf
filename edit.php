@@ -100,8 +100,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$usr->load($g_ext_usr);
 	if (isset($old_user))
 		$usr->delete($old_user);
-	foreach ($model["gateway"] as $gateway)
+	$prefix = array();
+	foreach ($model["gateway"] as $i => $gateway) {
+		if (in_array($gateway["prefix"], $prefix))
+			__invalid_entry($model, "gateway[$i][prefix]",
+					"Duplicate Gateway Prefix");
+		else
+			$prefix[] = $gateway["prefix"];
 		$usr->add($model["username"], $gateway);
+	}
 
 	$ael = new ExtAel();
 	$ael->load($g_ext_ael);
