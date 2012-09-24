@@ -99,8 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$ext->add($model["username"]);
 	$ext->dump($g_ext_ael);
 
-	$model["message"] = "OK";
-	render("Edit", "edit", $model);
+	header("Location: " . dirname($_SERVER["PHP_SELF"]) . "/list.php");
 	exit;
 }
 
