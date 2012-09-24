@@ -23,8 +23,32 @@ if (!empty($_GET["del"])) {
 				if ($ini->get($user, "mac") == $mac) {
 					$ini->deleteSection($user);
 					$ini->dump($g_chan_sync);
+					$target_user = $user;
 					break;
 				}
+			}
+
+			if (isset($target_user)) {
+				$ini->load($g_sip);
+				foreach ($ini->sections() as $host) {
+					if ($ini->get($host, "context") == $target_user)
+						$ini->deleteSection($host);
+				}
+				$ini->dump($g_sip);
+			}
+
+			if (isset($target_user)) {
+				$ext = new ExtUsr();
+				$ext->load($g_ext_usr);
+				$ext->delete($target_user);
+				$ext->dump($g_ext_usr);
+			}
+
+			if (isset($target_user)) {
+				$ext = new ExtAel();
+				$ext->load($g_ext_ael);
+				$ext->delete($target_user);
+				$ext->dump($g_ext_ael);
 			}
 		}
 	}
