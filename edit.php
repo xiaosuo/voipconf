@@ -55,56 +55,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			invalid_entry($model, "gateway[$i][prefix]");
 	}
 
-	$ini = new Ini();
-	$ini->load($g_chan_sync);
-	foreach ($ini->sections() as $user) {
-		if ($ini->get($user, "mac") == $model["mac"]) {
+	$chan = new Ini();
+	$chan->load($g_chan_sync);
+	foreach ($chan->sections() as $user) {
+		if ($chan->get($user, "mac") == $model["mac"]) {
 			if ($model["mode"] == "add")
 				__invalid_entry($model, "mac", "Duplicate MAC Address");
-			$ini->deleteSection($user);
+			$chan->deleteSection($user);
 			$old_user = $user;
 			break;
 		}
 	}
-	if (in_array($model["username"], $ini->sections()))
+	if (in_array($model["username"], $chan->sections()))
 		__invalid_entry($model, "username", "Duplicate Username");
-	$ini->add($model["username"], "authname", $model["username"]);
-	$ini->add($model["username"], "secret", $model["password"]);
-	$ini->add($model["username"], "host", "dynamic");
-	$ini->add($model["username"], "disallow", "all");
-	$ini->add($model["username"], "allow", "g729,g723");
-	$ini->add($model["username"], "mac", $model["mac"]);
-	$ini->dump($g_chan_sync);
+	$chan->add($model["username"], "authname", $model["username"]);
+	$chan->add($model["username"], "secret", $model["password"]);
+	$chan->add($model["username"], "host", "dynamic");
+	$chan->add($model["username"], "disallow", "all");
+	$chan->add($model["username"], "allow", "g729,g723");
+	$chan->add($model["username"], "mac", $model["mac"]);
 
-	$ini->load($g_sip);
-	if (isset($old_user)) {
-		foreach ($ini->sections() as $host) {
-			if ($ini->get($host, "context") == $old_user)
-				$ini->deleteSection($host);
-		}
+	$sip = new Ini();
+	$sip->load($g_sip);
+	$hosts = array();
+	foreach ($sip->sections() as $host) {
+		if ($sip->get($host, "context") == $old_user)
+			$sip->deleteSection($host);
+		else
+			$hosts[] = $host;
 	}
-	foreach ($model["switch"] as $switch) {
-		$ini->add($switch["host"], "type", "friend");
-		$ini->add($switch["host"], "host", $switch["host"]);
-		$ini->add($switch["host"], "context", $model["username"]);
-		$ini->add($switch["host"], "call-limit", $switch["call-limit"]);
+	foreach ($model["switch"] as $i => $switch) {
+		if (in_array($switch["host"], $hosts))
+			__invalid_entry($model, "switch[$i][host]",
+					"Duplicate Switch Host");
+		else
+			$hosts[] = $switch["host"];
+		$sip->add($switch["host"], "type", "friend");
+		$sip->add($switch["host"], "host", $switch["host"]);
+		$sip->add($switch["host"], "context", $model["username"]);
+		$sip->add($switch["host"], "call-limit", $switch["call-limit"]);
 	}
-	$ini->dump($g_sip);
 
-	$ext = new ExtUsr();
-	$ext->load($g_ext_usr);
+	$usr = new ExtUsr();
+	$usr->load($g_ext_usr);
 	if (isset($old_user))
-		$ext->delete($old_user);
+		$usr->delete($old_user);
 	foreach ($model["gateway"] as $gateway)
-		$ext->add($model["username"], $gateway);
-	$ext->dump($g_ext_usr);
+		$usr->add($model["username"], $gateway);
 
-	$ext = new ExtAel();
-	$ext->load($g_ext_ael);
+	$ael = new ExtAel();
+	$ael->load($g_ext_ael);
 	if (isset($old_user))
-		$ext->delete($old_user);
-	$ext->add($model["username"]);
-	$ext->dump($g_ext_ael);
+		$ael->delete($old_user);
+	$ael->add($model["username"]);
+
+	$chan->dump($g_chan_sync);
+	$sip->dump($g_sip);
+	$usr->dump($g_ext_usr);
+	$ael->dump($g_ext_ael);
 
 	header("Location: " . dirname($_SERVER["PHP_SELF"]) . "/list.php");
 	exit;
