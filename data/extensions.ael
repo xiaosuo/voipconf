@@ -1,6 +1,12 @@
-context user01 {
+context 1002 {
 	_X.	=> {
-		Dial(SYNC/user01/${EXTEN},60);
+		Dial(SYNC/1002/${EXTEN},60);
+		Hangup();
+	}
+}
+context 1003 {
+	_X.	=> {
+		Dial(SYNC/1003/${EXTEN},60);
 		Hangup();
 	}
 }

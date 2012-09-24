@@ -1,10 +1,13 @@
-context user01 {
+context 1002 {
 	_111X.	=> {
-		Dial(SIP/${EXTEN:3}@192.168.102.1:5060,60);
+		Dial(SIP/${EXTEN:3}@192.168.0.100:5060,60);
 		Hangup();
 	}
-	_222X.	=> {
-		Dial(SIP/${EXTEN:3}@192.168.102.2:5060,60);
+}
+
+context 1003 {
+	_444X.	=> {
+		Dial(SIP/${EXTEN:3}@192.168.0.111:5060,60);
 		Hangup();
 	}
 }
