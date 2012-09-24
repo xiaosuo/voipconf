@@ -33,12 +33,12 @@ if ($_GET["mac"] != "") {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	/* validate all the entries */
+	if (valid_mac($model["mac"]) === false)
+		invalid_entry($model, "mac");
 	if (valid_username($model["username"]) === false)
 		invalid_entry($model, "username");
 	if (valid_password($model["password"]) === false)
 		invalid_entry($model, "password");
-	if (valid_mac($model["mac"]) === false)
-		invalid_entry($model, "mac");
 	$model["mac"] = strtoupper($model["mac"]);
 	foreach ($model["switch"] as $i => $switch) {
 		if (valid_ip($switch["host"]) === false)
