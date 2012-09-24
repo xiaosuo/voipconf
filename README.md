@@ -1,4 +1,4 @@
-# A UI for VoIP configurations
+# An UI for VoIP configurations
 
 ## Setup
 
