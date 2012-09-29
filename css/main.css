@@ -54,6 +54,10 @@ td, th {
 	white-space: nowrap;
 }
 
+.nowrap {
+	white-space: nowrap;
+}
+
 th {
 	background-color: #eeeeee;
 	color: #484848;
