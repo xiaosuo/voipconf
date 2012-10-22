@@ -1,6 +1,6 @@
 <div id="nav">
 	<a href="access.php?access=logout">Logout</a> |
-	<a href="restart.php">Restart</a> |
+	<a id="restart" href="restart.php">Restart</a> |
 	<a href="status.php">Status</a> |
 	<a href="list.php">Configurations</a>
 </div>
