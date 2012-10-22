@@ -9,6 +9,11 @@ require_once("lib/validate.php");
 
 Header("Content-Type: text/plain; charset=UTF-8");
 
+if ($_GET["type"] == "sig") {
+	echo "voipconf\n";
+	exit(0);
+}
+
 if (($mac = valid_mac($_GET["mac"])) === false)
 	exit(1);
 
