@@ -3,14 +3,19 @@
 
 set -e
 
-BASIC_URL="http://127.0.0.1/voipconf/export.php"
+if [ $# -ne 1 ]; then
+	echo "Usage: $0 SERVER"
+	exit 1
+fi
+
+BASIC_URL="http://$1/voipconf/export.php"
 CONF_DIR="test/conf/client"
 VPN="test/bin/vpn"
 
-NIC="eth0"
+NIC=$(ip route | grep default | awk '{ print $NF }')
 MAC=$(cat /sys/class/net/$NIC/address | sed 's/:/%3A/g')
 TMPDIR=$(mktemp -d /tmp/voipconf.XXXXXXXXXX)
-SERVER_FILES="sbo chan_sync ael sbo-general-register"
+SERVER_FILES="sig sbo chan_sync ael sbo-general-register"
 
 get_file()
 {
@@ -33,6 +38,16 @@ extract_general()
 for f in $SERVER_FILES; do
 	get_file $f
 done
+
+if [ "x$(cat $TMPDIR/sig)" != "xvoipconf" ]; then
+	echo "Invalid SERVER: $1"
+	exit 1
+fi
+
+if [ $(stat -c "%s" $TMPDIR/sbo) -eq 0 ]; then
+	echo "Failed to authenticate with MAC address: $(echo  $MAC | sed 's/%3A/:/g')"
+	exit 1
+fi
 
 # extract general configurations
 extract_general $CONF_DIR/sbo.conf > $TMPDIR/sbo.conf
